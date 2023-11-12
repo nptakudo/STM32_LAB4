@@ -1,0 +1,28 @@
+/*
+ * command_parser_fsm.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+
+#include "command_parser_fsm.h"
+
+void command_parser_fsm() {
+    if (buffer_flag == 1) {
+        char temp_buffer[MAX_BUFFER_SIZE];
+        strncpy(temp_buffer, (char*)buffer, len - 1);
+        temp_buffer[len - 1] = '\0';
+
+        if (strcmp(temp_buffer, "!RST#") == 0) {
+        	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+        	HAL_UART_Transmit(&huart2, (uint8_t*)"RST is true\r\n", strlen("RST is true\r\n"), 100);
+        	token_data = 1;
+        	token_flag = 1;
+        }
+        else if (strcmp(temp_buffer,"!OK#") == 0){
+        	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+        	HAL_UART_Transmit(&huart2, (uint8_t*)"OK is true\r\n", strlen("OK is true\r\n"), 100);
+        	token_data = 2;
+        }
+    }
+}

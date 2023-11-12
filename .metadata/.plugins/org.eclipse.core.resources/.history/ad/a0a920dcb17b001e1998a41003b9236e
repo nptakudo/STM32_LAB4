@@ -1,0 +1,27 @@
+/*
+ * command_parser_fsm.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+
+
+#include "command_parser_fsm.h"
+
+void command_parser_fsm(){
+	switch(led_status){
+	case RED_MAN:
+
+		break;
+
+	case YELLOW_MAN:
+
+		break;
+
+	case GREEN_MAN:
+
+		break;
+
+	default:
+		break;
+	}

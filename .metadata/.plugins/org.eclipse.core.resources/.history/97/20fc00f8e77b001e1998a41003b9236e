@@ -1,0 +1,31 @@
+/*
+ * global.h
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+
+#ifndef INC_GLOBAL_H_
+#define INC_GLOBAL_H_
+
+#include "main.h"
+#include "fsm.h"
+#include "software_timer.h"
+
+#define MAX_BUFFER_SIZE 30
+#define RST 1
+#define OK 2
+#define DATA 3
+uint8_t temp = 0;
+uint8_t buffer[MAX_BUFFER_SIZE];
+uint8_t index_buffer = 0;
+uint8_t buffer_flag = 0;
+uint8_t over_flag = 0;
+uint8_t token_flag = 0;
+uint8_t len = 0;
+int token_data = 0;
+uint32_t ADC_value = 0;
+char str[20];
+
+
+#endif /* INC_GLOBAL_H_ */

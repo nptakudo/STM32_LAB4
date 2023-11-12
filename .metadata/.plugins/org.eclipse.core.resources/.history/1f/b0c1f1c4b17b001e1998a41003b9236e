@@ -1,0 +1,29 @@
+/*
+ * uart_communication_fsm.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+
+#include "uart_communication_fsm.h"
+
+void uart_communication_fsm(){
+	switch(led_status){
+	case RED_MAN:
+
+		break;
+
+	case YELLOW_MAN:
+
+		break;
+
+	case GREEN_MAN:
+
+		break;
+
+	default:
+		break;
+	}
+
+
+

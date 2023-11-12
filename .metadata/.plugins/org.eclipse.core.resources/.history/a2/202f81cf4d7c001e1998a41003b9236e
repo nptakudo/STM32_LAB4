@@ -1,0 +1,21 @@
+/*
+ * command_parser_fsm.h
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+
+#ifndef INC_COMMAND_PARSER_FSM_H_
+#define INC_COMMAND_PARSER_FSM_H_
+
+#include "global.h"
+#include "stdint.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "software_timer.h"
+
+void command_parser_fsm();
+void uart_communication_fsm();
+
+#endif /* INC_COMMAND_PARSER_FSM_H_ */

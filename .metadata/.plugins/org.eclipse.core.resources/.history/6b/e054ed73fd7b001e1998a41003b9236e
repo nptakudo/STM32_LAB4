@@ -1,0 +1,60 @@
+/*
+ * command_parser_fsm.c
+ *
+ *  Created on: Nov 5, 2023
+ *      Author: takudo
+ */
+#include "global.h"
+#include "fsm.h"
+
+uint32_t ADC_value = 0;
+char str[20];
+uint8_t token_flag = 0;
+//uint8_t len = 0;
+int uart_status = RST;
+//uint32_t ADC_value = 0;
+char str[20];
+
+void command_parser_fsm() {
+    if (buffer_flag == 1) {
+        char temp_buffer[MAX_BUFFER_SIZE];
+        strncpy(temp_buffer, (char*)buffer, len - 1);
+        temp_buffer[len - 1] = '\0';
+
+        if (strcmp(temp_buffer, "!RST#") == 0) {
+        	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+        	HAL_UART_Transmit(&huart2, (uint8_t*)"RST is true\r\n", strlen("RST is true\r\n"), 100);
+        	uart_status = DATA;
+        	token_flag = 1;
+        }
+        else if (strcmp(temp_buffer,"!OK#") == 0){
+        	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+        	HAL_UART_Transmit(&huart2, (uint8_t*)"OK is true\r\n", strlen("OK is true\r\n"), 100);
+        	uart_status = OK;
+        }
+    }
+}
+
+
+void uart_communication_fsm(){
+	if (timer1_flag == 1){
+		token_flag = 1;
+	}
+	if (token_flag){
+		token_flag = 0;
+		//TODO YOUR DFA
+		switch(uart_status){
+		case RST:
+			break;
+		case DATA:
+			HAL_ADC_Start(&hadc1);
+			ADC_value = HAL_ADC_GetValue(&hadc1);
+			HAL_ADC_Stop(&hadc1);
+			HAL_UART_Transmit(&huart2, (void*)str, sprintf(str,"!ADC=%ld#\r\n",ADC_value), 100);
+			setTimer1(300);
+		case OK:
+			token_flag = 0;
+			timer1_flag = 0;
+		}
+	}
+}
